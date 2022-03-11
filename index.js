@@ -29,7 +29,6 @@ app.get('/products', (req, resp) => {
 
   for(let index = 0 ; index < 100 ; index++) {
     products.push({
-      // Generamos nombres falsos de productos
       name: faker.commerce.productName(),
       price: parseInt(faker.commerce.price(), 10),
       image: faker.image.imageUrl(),
