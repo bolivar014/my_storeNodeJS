@@ -1,7 +1,9 @@
 // Inicializamos constante express | servidor
 const express = require('express');
 
+// Constructor routes | app
 const routerApi = require('./routes');
+
 // Creamos la app por medio del constructor de ExpressJS
 const app = express();
 
@@ -20,23 +22,6 @@ app.get('/new_route', (req, resp) => {
 });
 
 
-// Callback - Ruta Listar Usuarios
-app.get('/users', (req, resp) => {
-  // Recuperamos Variable limit y offset, por medio del get de la URL
-  const { limit, offset } = req.query;
-
-  // Validamos que llegue la variable limit y offset
-  if(limit && offset) {
-    // En caso que lleguen variables, las retornamos
-    resp.json({
-      limit,
-      offset,
-    })
-  } else {
-    // En caso que no lleguen las variables, retornamos
-    resp.send('No hay parametros de busqueda');
-  }
-});
 
 // Callback - Categoria | Producto ID
 app.get('/categories/:categoryId/products/:productId', (req, resp) => {

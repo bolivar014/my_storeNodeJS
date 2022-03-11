@@ -2,7 +2,7 @@
 const express = require('express');
 // Importamos libreria faker
 const faker = require('faker');
-
+// router
 const router = express.Router();
 
 // Callback - Ruta Listar Productos
