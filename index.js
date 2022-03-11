@@ -27,7 +27,15 @@ app.get('/products', (req, resp) => {
   // Inicializamos Array de Productos Vacio
   const products = [];
 
-  for(let index = 0 ; index < 100 ; index++) {
+  // Recupero variable size
+  const { size } = req.query;
+
+  // Verifico "En caso que no llegue la variable size, lista 10 por defecto"
+  const limit = size || 10;
+
+  // Generamos ciclo for para generar registros falsos
+  for(let index = 0 ; index < limit ; index++) {
+    // Llenamos array products
     products.push({
       name: faker.commerce.productName(),
       price: parseInt(faker.commerce.price(), 10),
@@ -38,6 +46,13 @@ app.get('/products', (req, resp) => {
   // Retornamos respuesta - JSON
   resp.json(products);
 });
+
+
+// Callback - "Cuando una ruta especifica se cruza con una ruta dinamica, se debe ubicar la función especifica antes de la dinamica"
+app.get('/products/filter', (req, resp) => {
+  resp.send('Yo soy un filtro...');
+});
+
 
 // Callback - Retorna JSON asociado a un producto en especifico
 app.get('/products/:id', (req, resp) => {
@@ -84,5 +99,5 @@ app.get('/categories/:categoryId/products/:productId', (req, resp) => {
 
 // Escucha de puerto
 app.listen(port, () => {
-  console.log('Mi Port: ' + port);
+  console.log('Mi Puerto de ejecución, es: ' + port);
 });
