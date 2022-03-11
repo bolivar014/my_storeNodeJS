@@ -21,20 +21,6 @@ app.get('/new_route', (req, resp) => {
   resp.send('Hola, esto es una nueva ruta');
 });
 
-
-
-// Callback - Categoria | Producto ID
-app.get('/categories/:categoryId/products/:productId', (req, resp) => {
-  // Recolectamos ID de categoria y producto
-  const { categoryId, productId } = req.params;
-
-  // Retornamos JSON
-  resp.json({
-    categoryId,
-    productId,
-  });
-});
-
 // Asignamos control de rutas | llamamos función que se encarga de enrutar
 routerApi(app);
 
