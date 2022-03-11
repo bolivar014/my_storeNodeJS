@@ -78,8 +78,8 @@
       Instalar dependencias
       Probar entornos desde los scripts npm
 
-
-[*]
+[*] Instalación de ExpressJS
+    npm install express
 
 [*]
 
