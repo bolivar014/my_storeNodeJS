@@ -110,7 +110,8 @@
 
     PATCH - HTTP | MDN
 
-[*]
+[*] Faker | libreria - Dependencia para generar datos falsos
+    npm install faker
 
 [*]
 
