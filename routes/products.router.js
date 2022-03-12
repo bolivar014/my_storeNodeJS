@@ -1,32 +1,19 @@
 // Inicializamos constante express | servidor
 const express = require('express');
-// Importamos libreria faker
-const faker = require('faker');
+
+// importamos instancia de products services.
+const ProductsService = require('./../services/product.service');
+
+// Creamos nueva instancia de ProductsService
+const service = new ProductsService();
+
 // router
 const router = express.Router();
 
 // Callback - Ruta Listar Productos
 router.get('/', (req, resp) => {
-  // resp.send('Hola, ruta de productos');
-
-  // Inicializamos Array de Productos Vacio
-  const products = [];
-
-  // Recupero variable size
-  const { size } = req.query;
-
-  // Verifico "En caso que no llegue la variable size, lista 10 por defecto"
-  const limit = size || 10;
-
-  // Generamos ciclo for para generar registros falsos
-  for(let index = 0 ; index < limit ; index++) {
-    // Llenamos array products
-    products.push({
-      name: faker.commerce.productName(),
-      price: parseInt(faker.commerce.price(), 10),
-      image: faker.image.imageUrl(),
-    });
-  }
+  // Obtenemos nueva instancia de productos
+  const products = service.find();
 
   // Retornamos respuesta - JSON
   resp.json(products);
@@ -43,21 +30,11 @@ router.get('/:id', (req, resp) => {
   // const id = req.params.id;
   const { id } = req.params;
 
-  // Todo tipo de get retornado por la URL, lo retorna como STRING
-  if(id === '999') {
-    // Evento cuando recibe un ID incorrecto "retorna STATUS 404 - NOT FOUND"
-    resp.status(404).json({
-      message: 'not found'
-    })
-  } else {
-    // Evento cuando se ejecuta correctamente "retorna STATUS 200 = OK"
-    resp.status(200).json({
-      id,
-      name: 'Product 2',
-      price: 2300
-    })
-  }
+  // Instancio el servicio findOne para buscar el ID del producto a consultar
+  const product = service.findOne(id);
 
+  // Retornamos JSON
+  resp.json(product);
 });
 
 // Post - Creación de Producto
@@ -97,5 +74,6 @@ router.delete('/:id', (req, resp) => {
     id,
   })
 });
+
 // Exportamos el modulo router
 module.exports = router;
