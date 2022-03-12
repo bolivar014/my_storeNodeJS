@@ -43,7 +43,8 @@ router.get('/:id', (req, resp) => {
   // const id = req.params.id;
   const { id } = req.params;
 
-  if(id === 999) {
+  // Todo tipo de get retornado por la URL, lo retorna como STRING
+  if(id === '999') {
     // Evento cuando recibe un ID incorrecto "retorna STATUS 404 - NOT FOUND"
     resp.status(404).json({
       message: 'not found'
