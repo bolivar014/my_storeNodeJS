@@ -1,4 +1,5 @@
 // Inicializamos constante express | servidor
+const { response } = require('express');
 const express = require('express');
 
 // importamos instancia de products services.
@@ -51,15 +52,24 @@ router.post('/', async (req, resp) => {
 
 // Patch - Actualización de Productos de manera parcial | no es necesario enviar todos los datos del formulario
 router.patch('/:id', async (req, resp) => {
-  // Recuperamos cuerpo de formulario
-  const body = req.body;
-  const { id } = req.params;
+  try {
+    // Recuperamos cuerpo de formulario
+    const body = req.body;
+    const { id } = req.params;
 
-  // Invocamos servicio update product y enviamos id del producto y el cuerpo
-  const product = await service.update(id, body);
+    // Invocamos servicio update product y enviamos id del producto y el cuerpo
+    const product = await service.update(id, body);
 
-  // Retornamos JSON
-  resp.json(product);
+    // Retornamos JSON
+    resp.json(product);
+  } catch(err) {
+    // Retornamos 404 - not found y retornamos mensaje de error
+    resp.status(404).json({
+      message: err.message
+    });
+  }
+
+
 });
 
 // DELETE - Eliminación de Productos

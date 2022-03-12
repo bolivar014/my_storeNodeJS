@@ -49,16 +49,6 @@ class ProductsService {
       }, 5000);
     });
   }
-  // async find() {
-  //   return new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       resolve(this.products);
-  //     }, 5000);
-  //   });
-
-  //   // Retornamos array de productos
-  //   return this.products;
-  // }
 
   // función para buscar un producto
   async findOne(id) {
