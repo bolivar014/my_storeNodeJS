@@ -4,6 +4,9 @@ const express = require('express');
 // Constructor routes | app
 const routerApi = require('./routes');
 
+// Exporto middlewares de error
+const { logErrors, errorHandler } = require('./middlewares/error.handler');
+
 // Creamos la app por medio del constructor de ExpressJS
 const app = express();
 
@@ -26,6 +29,12 @@ app.get('/new_route', (req, resp) => {
 
 // Asignamos control de rutas | llamamos función que se encarga de enrutar
 routerApi(app);
+
+//
+app.use(logErrors);
+
+//
+app.use(errorHandler);
 
 // Escucha de puerto
 app.listen(port, () => {

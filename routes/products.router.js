@@ -26,16 +26,20 @@ router.get('/filter', async (req, resp) => {
 });
 
 // Callback - Retorna JSON asociado a un producto en especifico
-router.get('/:id', async (req, resp) => {
-  // Constante para obtener el Request del ID del producto
-  // const id = req.params.id;
-  const { id } = req.params;
+router.get('/:id', async (req, resp, next) => {
+  try {
+    // Constante para obtener el Request del ID del producto
+    const { id } = req.params;
 
-  // Instancio el servicio findOne para buscar el ID del producto a consultar
-  const product = await service.findOne(id);
+    // Instancio el servicio findOne para buscar el ID del producto a consultar
+    const product = await service.findOne(id);
 
-  // Retornamos JSON
-  resp.json(product);
+    // Retornamos JSON
+    resp.json(product);
+  } catch (error) {
+    // Retornamos mensaje de error
+    next(error);
+  }
 });
 
 // Post - Creación de Producto

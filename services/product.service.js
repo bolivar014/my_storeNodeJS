@@ -52,6 +52,8 @@ class ProductsService {
 
   // función para buscar un producto
   async findOne(id) {
+    const name = this.getTotal();
+
     // Retornamos datos asociados al id
     return this.products.find(item => item.id === id);
   }
