@@ -20,5 +20,17 @@ function errorHandler(err, req, resp, next) {
   });
 }
 
+// Evento para errores boom
+function boomErrorHandler(err, req, resp, next) {
+  // Si es un error tipo boom,
+  if(err.isBoom) {
+    const { output } = err;
+    resp.status(output.statusCode).json(output.payload);
+  }
+
+  //
+  next(err);
+}
+
 // Exporto modulo tipo - Error
-module.exports = { logErrors, errorHandler }
+module.exports = { logErrors, errorHandler, boomErrorHandler }

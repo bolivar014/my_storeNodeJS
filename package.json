@@ -21,6 +21,7 @@
     "prettier": "^2.5.1"
   },
   "dependencies": {
+    "@hapi/boom": "^9.1.4",
     "bcrypt": "^5.0.1",
     "express": "^4.17.3",
     "puppeteer": "^13.5.1"

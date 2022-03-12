@@ -55,7 +55,7 @@ router.post('/', async (req, resp) => {
 });
 
 // Patch - Actualización de Productos de manera parcial | no es necesario enviar todos los datos del formulario
-router.patch('/:id', async (req, resp) => {
+router.patch('/:id', async (req, resp, next) => {
   try {
     // Recuperamos cuerpo de formulario
     const body = req.body;
@@ -68,9 +68,7 @@ router.patch('/:id', async (req, resp) => {
     resp.json(product);
   } catch(err) {
     // Retornamos 404 - not found y retornamos mensaje de error
-    resp.status(404).json({
-      message: err.message
-    });
+    next(err);
   }
 
 

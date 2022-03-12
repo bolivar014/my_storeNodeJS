@@ -116,7 +116,8 @@
 [*] HTTP - CAT
       https://http.cat/
 
-[*]
+[*] Manejo de errores | BOOM
+    INSTALACION: npm i @hapi/boom
 
 [*]
 

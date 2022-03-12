@@ -1,5 +1,7 @@
 // Importamos libreria faker
 const faker = require('faker');
+// Importamos libreria boom
+const boom = require('@hapi/boom'); // Control de error
 
 // Definimos Interacciones transaccionales de productos...
 class ProductsService {
@@ -22,6 +24,7 @@ class ProductsService {
         name: faker.commerce.productName(),
         price: parseInt(faker.commerce.price(), 10),
         image: faker.image.imageUrl(),
+        isBlock: faker.datatype.boolean(),
       });
     }
   }
@@ -52,10 +55,19 @@ class ProductsService {
 
   // función para buscar un producto
   async findOne(id) {
-    const name = this.getTotal();
-
     // Retornamos datos asociados al id
-    return this.products.find(item => item.id === id);
+    const product = this.products.find(item => item.id === id);
+
+    // Verificamos si existe el producto
+    if(!product) {
+      throw boom.notFound('Product not found');
+    }
+
+    // Verificamos si el producto es bloqueado
+    if(product.isBlock) {
+      throw boom.conflict('Product is block');
+    }
+    return product;
   }
 
   // función para actualizar producto
@@ -65,7 +77,8 @@ class ProductsService {
 
     // Validamos que exista el registro, en caso que no... retornar mensaje de producto no encontrado
     if(index === -1) {
-      throw new Error('Product not found');
+      // throw new Error('Product not found');
+      throw boom.notFound('Product not found');
     }
 
     // Variable que captura el index del producto
@@ -88,7 +101,8 @@ class ProductsService {
 
     // Validamos que exista el registro, en caso que no... retornar mensaje de producto no encontrado
     if(index === -1) {
-      throw new Error('Product not found');
+      // throw new Error('Product not found');
+      throw boom.notFound('Product not found');
     }
 
     // eliminamos el mensaje

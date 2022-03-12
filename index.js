@@ -5,7 +5,7 @@ const express = require('express');
 const routerApi = require('./routes');
 
 // Exporto middlewares de error
-const { logErrors, errorHandler } = require('./middlewares/error.handler');
+const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 
 // Creamos la app por medio del constructor de ExpressJS
 const app = express();
@@ -32,6 +32,9 @@ routerApi(app);
 
 //
 app.use(logErrors);
+
+//
+app.use(boomErrorHandler);
 
 //
 app.use(errorHandler);
