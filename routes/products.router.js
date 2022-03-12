@@ -50,5 +50,14 @@ router.get('/:id', (req, resp) => {
   })
 });
 
+//
+router.post('/', (req, resp) => {
+  const body = req.body;
+
+  resp.json({
+    message: "Product created",
+    data: body,
+  })
+});
 // Exportamos el modulo router
 module.exports = router;

@@ -10,6 +10,9 @@ const app = express();
 // Inicializamos puerto
 const port = 3000;
 
+// Middleware nativo EXPRES el cual permite retornar cadenas JSON
+app.use(express.json());
+
 // Callback - HOME
 app.get('/', (req, resp) => {
   // Retornamos respuesta.
