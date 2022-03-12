@@ -1,3 +1,5 @@
+// Inicializamos constante express | servidor
+const express = require('express');
 // Exportamos el modulo de exporte products.router
 const productsRouter = require('./products.router');
 // Exportamos el modulo de exporte users.router
@@ -7,12 +9,17 @@ const categoriesRouter = require('./categories.router');
 
 // Archivo de configuración Rutas
 function routerApi(app) {
-  // Se define todo el endpoint y router de products
-  app.use('/products', productsRouter);
-  // Se define todo el endpoint y router de users
-  app.use('/users', usersRouter);
-  // Se define todo el endpoint y router de categories
-  app.use('/categories', categoriesRouter);
+  // Constructor router
+  const router = express.Router();
+
+  // Formateando URL api.example.com/api/v1/XXXX
+  app.use('/api/v1', router);
+    // Se define todo el endpoint y router de products
+    router.use('/products', productsRouter);
+    // Se define todo el endpoint y router de users
+    router.use('/users', usersRouter);
+    // Se define todo el endpoint y router de categories
+    router.use('/categories', categoriesRouter);
 
 }
 
