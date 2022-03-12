@@ -50,13 +50,41 @@ router.get('/:id', (req, resp) => {
   })
 });
 
-//
+// Post - Creación de Producto
 router.post('/', (req, resp) => {
+  // Recuperamos cuerpo de formulario
   const body = req.body;
 
+  // Retornamos JSON
   resp.json({
     message: "Product created",
     data: body,
+  })
+});
+
+// Patch - Actualización de Productos de manera parcial | no es necesario enviar todos los datos del formulario
+router.patch('/:id', (req, resp) => {
+  // Recuperamos cuerpo de formulario
+  const body = req.body;
+  const { id } = req.params;
+
+  // Retornamos JSON
+  resp.json({
+    message: "Product update",
+    data: body,
+    id,
+  })
+});
+
+// DELETE - Eliminación de Productos
+router.delete('/:id', (req, resp) => {
+  // Recuperamos id de producto a eliminar
+  const { id } = req.params;
+
+  // Retornamos JSON
+  resp.json({
+    message: "Product delete",
+    id,
   })
 });
 // Exportamos el modulo router
