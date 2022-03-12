@@ -54,13 +54,43 @@ class ProductsService {
   }
 
   // función para actualizar producto
-  udpate() {
+  update(id, changes) {
+    // Buscamos el INDEX donde se encuentra almacenado el ID del producto
+    const index = this.products.findIndex(item => item.id === id);
 
+    // Validamos que exista el registro, en caso que no... retornar mensaje de producto no encontrado
+    if(index === -1) {
+      throw new Error('Product not found');
+    }
+
+    // Variable que captura el index del producto
+    const product = this.products[index];
+
+    // Actualizamos producto en posición index
+    this.products[index] = {
+        ...product,
+        ...changes
+    };
+
+    // Retornamos datos del producto
+    return this.products[index];
   }
 
   // función para eliminar un producto
-  delete() {
+  delete(id) {
+    // Buscamos el INDEX donde se encuentra almacenado el ID del producto
+    const index = this.products.findIndex(item => item.id === id);
 
+    // Validamos que exista el registro, en caso que no... retornar mensaje de producto no encontrado
+    if(index === -1) {
+      throw new Error('Product not found');
+    }
+
+    // eliminamos el mensaje
+    this.products.splice(index, 1);
+
+    // Retornamos id de producto eliminado
+    return { id };
   }
 }
 

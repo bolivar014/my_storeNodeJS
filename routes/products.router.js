@@ -55,12 +55,11 @@ router.patch('/:id', (req, resp) => {
   const body = req.body;
   const { id } = req.params;
 
+  // Invocamos servicio update product y enviamos id del producto y el cuerpo
+  const product = service.update(id, body);
+
   // Retornamos JSON
-  resp.json({
-    message: "Product update",
-    data: body,
-    id,
-  })
+  resp.json(product);
 });
 
 // DELETE - Eliminación de Productos
@@ -68,11 +67,12 @@ router.delete('/:id', (req, resp) => {
   // Recuperamos id de producto a eliminar
   const { id } = req.params;
 
+  // Invoco servicio eliminar producto
+  const deleteProd = service.delete(id);
+
   // Retornamos JSON
-  resp.json({
-    message: "Product delete",
-    id,
-  })
+  resp.json(deleteProd);
+
 });
 
 // Exportamos el modulo router
