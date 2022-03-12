@@ -27,8 +27,18 @@ class ProductsService {
   }
 
   // función para crear
-  create() {
+  create(data) {
+    // Creamos constante para nuevo producto
+    const newProduct = {
+      id: faker.datatype.uuid(),
+      ...data
+    }
 
+    // Insertamos el nuevo producto al array de productos
+    this.products.push(newProduct);
+
+    // retornamos datos del nuevo producto
+    return newProduct;
   }
 
   // función para retornar todos los productos

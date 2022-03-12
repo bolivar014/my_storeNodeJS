@@ -42,11 +42,11 @@ router.post('/', (req, resp) => {
   // Recuperamos cuerpo de formulario
   const body = req.body;
 
+  // Creamos una instancia de nuevo producto
+  const newProduct = service.create(body);
+
   // Retornamos JSON "retorna STATUS 201 = Created"
-  resp.status(201).json({
-    message: "Product created",
-    data: body,
-  })
+  resp.status(201).json(newProduct);
 });
 
 // Patch - Actualización de Productos de manera parcial | no es necesario enviar todos los datos del formulario
