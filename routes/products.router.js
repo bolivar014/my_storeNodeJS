@@ -11,64 +11,64 @@ const service = new ProductsService();
 const router = express.Router();
 
 // Callback - Ruta Listar Productos
-router.get('/', (req, resp) => {
+router.get('/', async (req, resp) => {
   // Obtenemos nueva instancia de productos
-  const products = service.find();
+  const products = await service.find();
 
   // Retornamos respuesta - JSON
   resp.json(products);
 });
 
 // Callback - "Cuando una ruta especifica se cruza con una ruta dinamica, se debe ubicar la función especifica antes de la dinamica"
-router.get('/filter', (req, resp) => {
+router.get('/filter', async (req, resp) => {
   resp.send('Yo soy un filtro...');
 });
 
 // Callback - Retorna JSON asociado a un producto en especifico
-router.get('/:id', (req, resp) => {
+router.get('/:id', async (req, resp) => {
   // Constante para obtener el Request del ID del producto
   // const id = req.params.id;
   const { id } = req.params;
 
   // Instancio el servicio findOne para buscar el ID del producto a consultar
-  const product = service.findOne(id);
+  const product = await service.findOne(id);
 
   // Retornamos JSON
   resp.json(product);
 });
 
 // Post - Creación de Producto
-router.post('/', (req, resp) => {
+router.post('/', async (req, resp) => {
   // Recuperamos cuerpo de formulario
   const body = req.body;
 
   // Creamos una instancia de nuevo producto
-  const newProduct = service.create(body);
+  const newProduct = await service.create(body);
 
   // Retornamos JSON "retorna STATUS 201 = Created"
   resp.status(201).json(newProduct);
 });
 
 // Patch - Actualización de Productos de manera parcial | no es necesario enviar todos los datos del formulario
-router.patch('/:id', (req, resp) => {
+router.patch('/:id', async (req, resp) => {
   // Recuperamos cuerpo de formulario
   const body = req.body;
   const { id } = req.params;
 
   // Invocamos servicio update product y enviamos id del producto y el cuerpo
-  const product = service.update(id, body);
+  const product = await service.update(id, body);
 
   // Retornamos JSON
   resp.json(product);
 });
 
 // DELETE - Eliminación de Productos
-router.delete('/:id', (req, resp) => {
+router.delete('/:id', async (req, resp) => {
   // Recuperamos id de producto a eliminar
   const { id } = req.params;
 
   // Invoco servicio eliminar producto
-  const deleteProd = service.delete(id);
+  const deleteProd = await service.delete(id);
 
   // Retornamos JSON
   resp.json(deleteProd);

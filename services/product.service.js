@@ -10,7 +10,7 @@ class ProductsService {
   }
 
   // función
-  generate() {
+  async generate() {
     // Verifico "En caso que no llegue la variable size, lista 10 por defecto"
     const limit = 100;
 
@@ -27,7 +27,7 @@ class ProductsService {
   }
 
   // función para crear
-  create(data) {
+  async create(data) {
     // Creamos constante para nuevo producto
     const newProduct = {
       id: faker.datatype.uuid(),
@@ -42,19 +42,32 @@ class ProductsService {
   }
 
   // función para retornar todos los productos
-  find() {
-    // Retornamos array de productos
-    return this.products;
+  async find() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.products);
+      }, 5000);
+    });
   }
+  // async find() {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       resolve(this.products);
+  //     }, 5000);
+  //   });
+
+  //   // Retornamos array de productos
+  //   return this.products;
+  // }
 
   // función para buscar un producto
-  findOne(id) {
+  async findOne(id) {
     // Retornamos datos asociados al id
     return this.products.find(item => item.id === id);
   }
 
   // función para actualizar producto
-  update(id, changes) {
+  async update(id, changes) {
     // Buscamos el INDEX donde se encuentra almacenado el ID del producto
     const index = this.products.findIndex(item => item.id === id);
 
@@ -77,7 +90,7 @@ class ProductsService {
   }
 
   // función para eliminar un producto
-  delete(id) {
+  async delete(id) {
     // Buscamos el INDEX donde se encuentra almacenado el ID del producto
     const index = this.products.findIndex(item => item.id === id);
 
