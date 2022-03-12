@@ -113,7 +113,8 @@
 [*] Faker | libreria - Dependencia para generar datos falsos
     npm install faker  ó npm i --save-dev faker@5.5.3
 
-[*]
+[*] HTTP - CAT
+      https://http.cat/
 
 [*]
 

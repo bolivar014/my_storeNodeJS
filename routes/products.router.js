@@ -43,11 +43,20 @@ router.get('/:id', (req, resp) => {
   // const id = req.params.id;
   const { id } = req.params;
 
-  resp.json({
-    id,
-    name: 'Product 2',
-    price: 2300
-  })
+  if(id === 999) {
+    // Evento cuando recibe un ID incorrecto "retorna STATUS 404 - NOT FOUND"
+    resp.status(404).json({
+      message: 'not found'
+    })
+  } else {
+    // Evento cuando se ejecuta correctamente "retorna STATUS 200 = OK"
+    resp.status(200).json({
+      id,
+      name: 'Product 2',
+      price: 2300
+    })
+  }
+
 });
 
 // Post - Creación de Producto
@@ -55,8 +64,8 @@ router.post('/', (req, resp) => {
   // Recuperamos cuerpo de formulario
   const body = req.body;
 
-  // Retornamos JSON
-  resp.json({
+  // Retornamos JSON "retorna STATUS 201 = Created"
+  resp.status(201).json({
     message: "Product created",
     data: body,
   })
