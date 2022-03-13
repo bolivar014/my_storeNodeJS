@@ -147,7 +147,8 @@
       Testing: Correr prebas unitarias o de integración antes de salir de producción
 
 
-[*]
+[*] Instalando libreria cors
+    npm i cors
 
 [*]
 
