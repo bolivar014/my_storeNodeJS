@@ -6,8 +6,8 @@ function validatorHandler(schema, property) {
   return (req, resp, next) => {
     // Obtiene la data desde un request desde diferentes tipos peticiones: POST - QUERY - PARAMS
     const data = req[property];
-    // validamos esquema de datos | error
-    const { error } = schema.validate(data);
+    // validamos esquema de datos | cuando joi detecta muchos errores en el formulario, con abortEarly en false permite mostrar los mensajes de error
+    const { error } = schema.validate(data, { abortEarly: false });
 
     // En caso que suceda una ejecución incorrecta | type 400
     if(error) {

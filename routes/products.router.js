@@ -4,6 +4,11 @@ const express = require('express');
 
 // importamos instancia de products services.
 const ProductsService = require('./../services/product.service');
+// Importamos instancia de validator | Middleware
+const validatorHandler = require('./../middlewares/validator.handler');
+// Importamos instancia a los schema
+const { createProductSchema, updateProductSchema, getProductSchema } = require('./../schemas/product.schema');
+const { ge } = require('faker/lib/locales');
 
 // Creamos nueva instancia de ProductsService
 const service = new ProductsService();
@@ -26,7 +31,11 @@ router.get('/filter', async (req, resp) => {
 });
 
 // Callback - Retorna JSON asociado a un producto en especifico
-router.get('/:id', async (req, resp, next) => {
+router.get('/:id',
+  // ejectuamos validación de datos || Obtiene un id de schema y obtiene los datos desde "params"
+  validatorHandler(getProductSchema, 'params'),
+  // Ejecutamos petición
+  async (req, resp, next) => {
   try {
     // Constante para obtener el Request del ID del producto
     const { id } = req.params;
@@ -43,36 +52,42 @@ router.get('/:id', async (req, resp, next) => {
 });
 
 // Post - Creación de Producto
-router.post('/', async (req, resp) => {
-  // Recuperamos cuerpo de formulario
-  const body = req.body;
-
-  // Creamos una instancia de nuevo producto
-  const newProduct = await service.create(body);
-
-  // Retornamos JSON "retorna STATUS 201 = Created"
-  resp.status(201).json(newProduct);
-});
-
-// Patch - Actualización de Productos de manera parcial | no es necesario enviar todos los datos del formulario
-router.patch('/:id', async (req, resp, next) => {
-  try {
+router.post('/',
+  validatorHandler(createProductSchema, 'body'),
+  async (req, resp) => {
     // Recuperamos cuerpo de formulario
     const body = req.body;
-    const { id } = req.params;
 
-    // Invocamos servicio update product y enviamos id del producto y el cuerpo
-    const product = await service.update(id, body);
+    // Creamos una instancia de nuevo producto
+    const newProduct = await service.create(body);
 
-    // Retornamos JSON
-    resp.json(product);
-  } catch(err) {
-    // Retornamos 404 - not found y retornamos mensaje de error
-    next(err);
+    // Retornamos JSON "retorna STATUS 201 = Created"
+    resp.status(201).json(newProduct);
   }
+);
 
+// Patch - Actualización de Productos de manera parcial | no es necesario enviar todos los datos del formulario
+router.patch('/:id',
+  // Procesamos middlewares de manera secuencial | cuando son origenes de datos diferentes
+  validatorHandler(getProductSchema, 'params'),
+  validatorHandler(updateProductSchema, 'body'),
+  async (req, resp, next) => {
+    try {
+      // Recuperamos cuerpo de formulario
+      const body = req.body;
+      const { id } = req.params;
 
-});
+      // Invocamos servicio update product y enviamos id del producto y el cuerpo
+      const product = await service.update(id, body);
+
+      // Retornamos JSON
+      resp.json(product);
+    } catch(err) {
+      // Retornamos 404 - not found y retornamos mensaje de error
+      next(err);
+    }
+  }
+);
 
 // DELETE - Eliminación de Productos
 router.delete('/:id', async (req, resp) => {
