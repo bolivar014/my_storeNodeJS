@@ -159,19 +159,28 @@
 [*] Listar Containers Docker
       docker-composer ps
 
-[*]
+[*] Explorar container | base de datos postgres desde docker.
+      docker-compose exec [DB] bash
+      ejm: docker-compose exec postgres bash
 
-[*]
 
-[*]
+[*] listar archivos dentro de ruta
+      ls -l
 
-[*]
+[*] Conectar a base de datos | bash
+    psql -h localhost -d my_store -U bolivar014
 
-[*]
+[*] contectar a base de datos | interfaz
+    docker-compose up -d pgadmin
 
-[*]
+[*] Consultar pgadmin
+      http://localhost:5050/login?next=%2F
 
-[*]
+[*] Obtener el id del container
+    docker ps
+
+[*] Inspeccionar Container docker con id
+      docker inspect [id_Docker]
 
 [*]
 
