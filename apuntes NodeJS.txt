@@ -150,11 +150,14 @@
 [*] Instalando libreria cors
     npm i cors
 
-[*]
+[*] Ejecución Docker
+      docker-composer up -d postgres
 
-[*]
+[*] Desmontar Composer
+      docker-composer down
 
-[*]
+[*] Listar Containers Docker
+      docker-composer ps
 
 [*]
 

@@ -216,4 +216,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# no persista los datos en postgres_data
+postgres_data
+
 # End of https://www.toptal.com/developers/gitignore/api/node,windows,linux,macos
