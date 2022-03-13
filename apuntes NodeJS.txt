@@ -119,7 +119,8 @@
 [*] Manejo de errores | BOOM
     INSTALACION: npm i @hapi/boom
 
-[*]
+[*] Libreria Validacion de datos | Libreria joi
+    INSTALACION: npm i joi
 
 [*]
 
